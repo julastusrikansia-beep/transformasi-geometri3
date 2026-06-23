@@ -63,15 +63,25 @@
 }';
 
   /* Deteksi mobile sungguhan: cek user-agent DAN pointer coarse */
+  /* Deteksi mobile sungguhan: cek user-agent DAN pointer coarse */
   function isMobileDevice() {
     var ua = navigator.userAgent;
     var mobileUA = /Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
     var tabletUA = /iPad|Tablet/i.test(ua);
-    /* pointer: coarse = layar sentuh */
+    
+    /* pointer: coarse = layar sentuh (HP/Tablet) */
     var touchPointer = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
-    /* Max-width hanya untuk backup, bukan syarat utama */
-    var narrowScreen = window.screen.width <= 1024;
-    return (mobileUA || tabletUA || touchPointer) && narrowScreen;
+    
+    /* Gunakan innerWidth/innerHeight atau matchMedia untuk deteksi ukuran, jauh lebih aman untuk PWA */
+    var isSmallMedia = window.matchMedia && window.matchMedia('(max-width: 1024px)').matches;
+    var currentWidth = Math.min(window.innerWidth, window.screen.width);
+    var narrowScreen = isSmallMedia || currentWidth <= 1024;
+    
+    /* Deteksi jika dibuka sebagai PWA Standalone */
+    var isPWA = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+
+    // Jika ini PWA, atau memenuhi kriteria mobile, anggap True
+    return isPWA || ((mobileUA || tabletUA || touchPointer) && narrowScreen);
   }
 
   function check() {
