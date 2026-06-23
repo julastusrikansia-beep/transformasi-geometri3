@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Baloo+2:wght@700;800&display=swap');
+
+/* RESET */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: rgb(0, 6, 34);
+  overflow-x: hidden;
+}
+
+/* ANIMASI — translateY(0) bukan (10px) agar tidak dorong layout */
+@keyframes slideDownFade {
+  from { opacity: 0; transform: translateY(-24px); }
+  to   { opacity: 1; transform: translateY(0);     }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* BACKGROUND BINTANG */
+#stars {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Semua konten di atas canvas */
+.hero, .container-materi, .simulasi-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================================
+   HERO SECTION
+========================================== */
+.hero {
+  width: 90%;
+  max-width: 900px;
+  margin: 36px auto 24px;
+  color: white;
+  text-align: center;
+  animation: slideDownFade 0.8s ease forwards;
+}
+
+/* hero-header: tombol kembali di kiri, judul tetap center via teks */
+.hero-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+/* Tombol kembali: absolute kiri agar tidak geser judul dari tengah */
+.btn-kembali {
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: white;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+  background: linear-gradient(145deg, #4a4a4a, #2f2f2f);
+  box-shadow: 0 3px 0 #1b1b1b, 0 5px 12px rgba(0,0,0,.4);
+  transition: .25s;
+  z-index: 10;
+}
+.btn-kembali:hover {
+  background: linear-gradient(145deg, #1b63d1, #0F52BA);
+  box-shadow: 0 0 15px rgba(15,82,186,.8);
+  transform: translateY(-2px);
+}
+
+.hero h2 {
+  font-family: 'Baloo 2', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: #4da3ff;
+  margin: 0;
+  text-align: center;
+}
+
+.hero p {
+  font-size: 16px;
+  line-height: 1.75;
+  opacity: .88;
+  color: white;
+}
+
+/* ==========================================
+   GRID KARTU MATERI (2 x 2 di desktop)
+========================================== */
+.container-materi {
+  width: 90%;
+  max-width: 1000px;
+  margin: 0 auto 32px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.card-materi {
+  background: linear-gradient(145deg, #2d2d2d, #1a1a1a);
+  border-radius: 20px;
+  padding: 22px;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  transition: .3s;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 6px 12px rgba(0,0,0,.4);
+  display: flex;
+  flex-direction: column;
+}
+.card-materi:hover {
+  transform: translateY(-6px) scale(1.02);
+  border: 1px solid #4da3ff;
+  box-shadow: 0 0 15px rgba(15,82,186,.7), 0 0 30px rgba(15,82,186,.4);
+}
+
+.materi-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 14px;
+  transition: 0.4s ease;
+  display: block;
+}
+.card-materi:hover .materi-img { transform: scale(1.04); }
+
+.icon-materi { font-size: 52px; margin-bottom: 12px; }
+
+.card-materi h3 {
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+.card-materi p {
+  font-size: 14px;
+  opacity: .8;
+  line-height: 1.5;
+}
+
+/* ==========================================
+   TOMBOL SIMULASI
+========================================== */
+.simulasi-wrapper {
+  text-align: center;
+  margin: 8px 0 48px;
+}
+.btn-simulasi {
+  display: inline-block;
+  padding: 14px 34px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: #00131a;
+  background: linear-gradient(135deg, #00dcff, #00a8ff);
+  box-shadow: 0 0 20px rgba(0,220,255,.4);
+  transition: .3s ease;
+}
+.btn-simulasi:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 30px rgba(0,220,255,.8);
+}
+.btn-simulasi:active { transform: scale(.97); }
+
+/* ==========================================
+   HALAMAN MATERI DETAIL (translasi, refleksi, dll)
+   Dipakai via style.css, tapi definisikan di sini juga
+========================================== */
+.materi-container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 40px auto;
+  color: white;
+}
+.card {
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.3);
+}
+.card h2 {
+  color: #4da3ff;
+  margin-bottom: 15px;
+  font-family: 'Baloo 2', sans-serif;
+}
+.rumus {
+  margin-top: 20px;
+  background: rgba(255,255,255,.08);
+  border-left: 5px solid #4da3ff;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 22px;
+  font-family: 'Russo One', sans-serif;
+}
+
+/* ==========================================
+   RESPONSIVE LANDSCAPE HP
+   Semua 4 kartu tampil dalam 1 baris
+========================================== */
+@media screen and (max-width: 960px) and (orientation: landscape) {
+
+  body { overflow-y: auto; }
+
+  .hero {
+    width: 92%;
+    margin: 14px auto 12px;
+  }
+  .hero-header { margin-bottom: 8px; }
+  .hero h2 { font-size: 1.2rem; }
+  .hero p { font-size: 13px; line-height: 1.5; }
+
+  .btn-kembali {
+    padding: 7px 13px;
+    font-size: 12px;
+    border-radius: 10px;
+  }
+
+  /* 4 kolom di landscape */
+  .container-materi {
+    width: 92%;
+    margin: 0 auto 14px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .card-materi { padding: 12px; border-radius: 14px; }
+  .materi-img { height: 90px; margin-bottom: 8px; border-radius: 10px; }
+  .card-materi h3 { font-size: 14px; margin-bottom: 4px; }
+  .card-materi p  { font-size: 11px; }
+  .icon-materi { font-size: 32px; margin-bottom: 6px; }
+
+  .simulasi-wrapper { margin: 10px 0 20px; }
+  .btn-simulasi { padding: 10px 24px; font-size: 13px; }
+}
+
+/* Animasi klik (compat) */
+.klik { transform: scale(0.95); opacity: 0.8; transition: all 0.3s ease; }

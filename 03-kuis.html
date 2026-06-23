@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kuis</title>
+    <link rel="stylesheet" href="assets/css/kuis.css">
+</head>
+<body>
+
+    <canvas id="stars"></canvas>
+    
+<div class="top-bar">
+  <a href="index.html" class="back-circle-link">
+    <button type="button" class="back-circle-btn">←</button>
+  </a>
+  <h1>KUIS</h1>
+</div>
+
+<div class="quiz-container">
+
+    <div id="menu-kesulitan" class="menu-box">
+    <h2>Pilih Tingkat Kesulitan</h2>
+    <div class="level-card-container">
+        
+        <div class="level-card" onclick="pilihLevel('mudah')">
+            <img src="assets/img/mudah.jpg" alt="Mudah" class="level-img">
+            <button class="level-btn mudah">Mudah</button>
+        </div>
+
+        <div class="level-card" onclick="pilihLevel('sedang')">
+            <img src="assets/img/sedang.jpg" alt="Sedang" class="level-img">
+            <button class="level-btn sedang">Sedang</button>
+        </div>
+
+        <div class="level-card" onclick="pilihLevel('sulit')">
+            <img src="assets/img/sulit.jpg" alt="Sulit" class="level-img">
+            <button class="level-btn sulit">Sulit</button>
+        </div>
+
+    </div>
+</div>
+
+    <div id="area-game" style="display: none;">
+        <div id="materi" class="materi"></div>
+        <div id="nomor" class="nomor"></div>
+        <div id="soal" class="soal"></div>
+        <div id="opsi" class="opsi"></div>
+
+        <div class="btn-group">
+            <button id="prevBtn">Sebelumnya</button>
+            <button id="finishBtn" style="background-color: #e67e22; display: none;">Selesai</button>
+            <button id="nextBtn">Berikutnya</button>
+        </div>
+    </div>
+
+    <div id="hasil-container" class="menu-box" style="display: none;">
+        <h2>Hasil Nilai Akhir</h2>
+        <div class="skor-lingkaran">
+            <span id="nilai-skor">0</span>
+        </div>
+        <p id="detail-stat"></p>
+        <button class="level-btn" onclick="ulangiKuis()" style="background: #0F52BA; margin-top: 20px;">Main Lagi</button>
+    </div>
+
+</div>
+
+<script src="assets/js/background.js"></script>
+<script>
+window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="assets/js/kuis-data.js"></script>
+<script src="assets/js/kuis-konten.js"></script>
+
+
+<script src="assets/js/landscape-guard.js"></script>
+</body>
+</html>

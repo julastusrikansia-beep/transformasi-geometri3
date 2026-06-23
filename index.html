@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Main Menu</title>
+    <meta name="theme-color" content="#4A90E2"> 
+    <link rel="stylesheet" href="assets/css/main-menu.css">
+    
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+    <canvas id="stars"></canvas>
+
+    <div class="header">
+        <h1>Transformasi Geometri</h1>
+    </div>
+
+    <div class="container-tombol">
+        <a href="01-1-materi-pengantar.html" class="btn-menu">
+            <span>Materi Pengantar</span>
+        </a>
+
+        <a href="02-simulasi.html" class="btn-menu">
+            <span>Simulasi</span>
+        </a>
+
+        <a href="03-kuis.html" class="btn-menu">
+            <span>Kuis</span>
+        </a>
+    </div>
+
+    <script src="assets/js/background.js"></script>
+    <script src="assets/js/main-menu.js"></script>
+    <script src="assets/js/landscape-guard.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('PWA Service Worker terdaftar!', reg.scope))
+                    .catch(err => console.error('Gagal mendaftarkan Service Worker', err));
+            });
+        }
+    </script>
+</body>
+</html>

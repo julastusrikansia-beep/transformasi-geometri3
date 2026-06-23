@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Simulasi Transformasi Geometri</title>
+    <link class="sub-css" rel="stylesheet" href="assets/css/simulasi.css">
+</head>
+<body class="page-enter">
+
+<div class="top-bar">
+    <a href="index.html" class="back-circle-link">
+        <button type="button" class="back-circle-btn">←</button>
+    </a>
+    <div class="header">
+        <h1>TRANSFORMASI GEOMETRI</h1>
+    </div>
+</div>
+
+<div class="body-row">
+    <div class="sidebar">
+        <div class="sidebar-label">Jenis Transformasi</div>
+        
+        <div class="dropdown-wrapper">
+            <button class="btn-transform" id="btnDropdown" onclick="toggleDropdown()">
+                <span id="btnLabel">Pilih Transformasi</span>
+                <span class="arrow">▼</span>
+            </button>
+            <div class="dropdown-menu" id="dropdownMenu">
+                <button class="dropdown-item" onclick="pilihTransformasi(event,'translasi','Translasi'); tampilkanRumusPanel('translasi')">Translasi</button>
+                <button class="dropdown-item" onclick="pilihTransformasi(event,'refleksi','Refleksi'); tampilkanRumusPanel('refleksi')">Refleksi</button>
+                <button class="dropdown-item" onclick="pilihTransformasi(event,'rotasi','Rotasi'); tampilkanRumusPanel('rotasi')">Rotasi</button>
+                <button class="dropdown-item" onclick="pilihTransformasi(event,'dilatasi','Dilatasi'); tampilkanRumusPanel('dilatasi')">Dilatasi</button>
+            </div>
+        </div>
+
+        <div class="sidebar-label">Double klik pada canvas untuk membuat titik.</div>
+        <div class="objek-row">
+            <button id="btnUndo" class="objek-btn undo-redo-btn" title="Undo (Ctrl+Z)" disabled>↩ Undo</button>
+            <button id="btnRedo" class="objek-btn undo-redo-btn" title="Redo (Ctrl+Y)" disabled>Redo ↪</button>
+            <button id="btnSelesaiBentuk" class="objek-btn">Selesai</button>
+        </div>
+
+        <div class="parameter-panel">
+            <div class="parameter-title">Parameter</div>
+            <div id="latexParameter" class="latex-parameter"></div>
+
+            <div class="input-group" id="groupA">
+                <label id="labelA">\( a\ (\text{sumbu-}x) \)</label>
+                <div class="input-stack">
+                    <input type="text" inputmode="text" id="nilaiA" value="0" placeholder="contoh: 3/2">
+                    <div class="input-latex-overlay" id="overlayA">\(0\)</div>
+                    <div class="input-latex-preview" id="previewA"></div>
+                </div>
+            </div>
+            <div class="input-group" id="groupB">
+                <label id="labelB">\( b\ (\text{sumbu-}y) \)</label>
+                <div class="input-stack">
+                    <input type="text" inputmode="text" id="nilaiB" value="0" placeholder="contoh: 3/2">
+                    <div class="input-latex-overlay" id="overlayB">\(0\)</div>
+                    <div class="input-latex-preview" id="previewB"></div>
+                </div>
+            </div>
+
+            <div class="input-group" id="groupPusatDilatasi" style="display: none;">
+                <label id="labelPusatDilatasi">\( \text{Pusat D}\ (a, b) \)</label>
+                <div style="display: flex; gap: 5px;">
+                    <div class="input-stack">
+                        <input type="text" inputmode="text" id="dilatasiA" value="0" placeholder="a, mis. 1/2">
+                        <div class="input-latex-overlay" id="overlayDilatasiA">\(0\)</div>
+                        <div class="input-latex-preview" id="previewDilatasiA"></div>
+                    </div>
+                    <div class="input-stack">
+                        <input type="text" inputmode="text" id="dilatasiB" value="0" placeholder="b, mis. 1/2">
+                        <div class="input-latex-overlay" id="overlayDilatasiB">\(0\)</div>
+                        <div class="input-latex-preview" id="previewDilatasiB"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group" id="groupSudut" style="display: none;">
+                <label id="labelSudut">\( \text{Sudut}\ (^{\circ}) \)</label>
+                <div class="input-stack">
+                    <input type="text" inputmode="text" id="nilaiSudut" value="0">
+                        <div class="input-latex-overlay" id="overlaySudut">\(0\)</div>
+                    <div class="input-latex-preview" id="previewSudut"></div>
+                </div>
+            </div>
+
+            <div id="panelRefleksi" style="display:none; flex-direction: column; gap: 14px; width: 100%;">
+                <div class="sidebar-label" style="margin-bottom: -5px;">Pilih Sumbu Refleksi</div>
+                <div class="dropdown-wrapper">
+                    <button class="btn-transform" id="btnDropdownRefleksi" onclick="toggleDropdownRefleksi()">
+                        <span id="labelRefleksi">\( \text{Sumbu}\ x \)</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu" id="dropdownRefleksi">
+                        <button class="dropdown-item" onclick="pilihRefleksi(event,'x','Sumbu X')">\( \text{Sumbu}\ x \)</button>
+                        <button class="dropdown-item" onclick="pilihRefleksi(event,'y','Sumbu Y')">\( \text{Sumbu}\ y \)</button>
+                        <button class="dropdown-item" onclick="pilihRefleksi(event,'x=k','Garis x = k')">\( \text{Garis}\ x = k \)</button>
+                        <button class="dropdown-item" onclick="pilihRefleksi(event,'y=k','Garis y = k')">\( \text{Garis}\ y = k \)</button>
+                        <button class="dropdown-item" onclick="pilihRefleksi(event,'y=x','Garis y = x')">\( \text{Garis}\ y = x \)</button>
+                        <button class="dropdown-item" onclick="pilihRefleksi(event,'y=-x','Garis y = -x')">\( \text{Garis}\ y = -x \)</button>
+                        <button class="dropdown-item" onclick="pilihRefleksi(event,'o','Titik Pusat O(0,0)')">\( \text{Titik Pusat}\ O(0,0) \)</button>
+                    </div>
+                </div>
+                <div class="input-group" id="inputGarisK" style="display: none;">
+                    <label id="labelGarisK">\( \text{Nilai}\ k \)</label>
+                    <div class="input-stack">
+                        <input type="text" inputmode="text" id="nilaiK" value="0" placeholder="contoh: 3/2">
+                        <div class="input-latex-overlay" id="overlayK">\(0\)</div>
+                        <div class="input-latex-preview" id="previewK"></div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="btnTerapkan" class="action-btn apply-btn">TERAPKAN</button>
+
+            <div class="btn-row">
+                <button id="btnReset" class="action-btn reset-btn">RESET</button>
+                <button class="action-btn animasi-btn">ANIMASI</button>
+            </div>
+
+            <div class="toggle-group">
+                <span>Tampilkan Grid</span>
+                <label class="switch">
+                    <input type="checkbox" id="toggle-grid" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="toggle-group">
+                <span>Tampilkan Koordinat</span>
+                <label class="switch">
+                    <input type="checkbox" id="toggle-koordinat" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="canvas-layout">
+
+    <div class="canvas-panel">
+
+        <h2 style="color:#ffffff; margin-bottom:15px;">
+            Panel Canvas
+        </h2>
+
+        <div class="container-kartesius">
+            <div class="kotak-putih"></div>
+            <canvas id="canvas" width="700" height="600"></canvas>
+            <div id="labelOverlay" class="label-overlay"></div>
+        </div>
+
+    </div>
+
+    <div class="hasil-panel">
+
+        <div class="latex-box">
+            <h3>Objek Awal</h3>
+            <div id="latexAwal"></div>
+        </div>
+
+        <div class="latex-box">
+            <h3>Hasil Transformasi</h3>
+            <div id="latexHasil"></div>
+        </div>
+
+    </div>
+
+    </div>
+
+</div>
+
+<div class="solusi-section">
+
+    <div class="rumus-panel">
+
+        <div class="rumus-panel-title">Cara Penyelesaian</div>
+
+        <div id="rumusPanelContent">
+            <p class="rumus-hint">Pilih jenis transformasi untuk melihat rumus dan cara penyelesaiannya.</p>
+        </div>
+
+        <!-- TRANSLASI -->
+        <div id="rumusTranslasi" class="rumus-section" style="display:none;">
+            <div class="rumus-jenis">Translasi</div>
+            <p class="rumus-deskripsi">Geser titik $(x,y)$ sejauh $(a,b)$ tanpa mengubah bentuk.</p>
+            <div class="rumus-box">
+                \[ T(x,y) = (x+a,\; y+b) \]
+            </div>
+            <div class="rumus-langkah">
+                <div class="langkah-title">Langkah Penyelesaian</div>
+                <ol>
+                    <li>Tentukan titik asal $(x, y)$ dan vektor translasi $(a, b)$.</li>
+                    <li>Tambahkan komponen: $x' = x + a$</li>
+                    <li>Tambahkan komponen: $y' = y + b$</li>
+                    <li>Bayangan: $(x', y')$</li>
+                </ol>
+            </div>
+            <div class="rumus-kerja" id="kerjaTranslasi">
+                <div class="contoh-title">Penyelesaian Titik Anda</div>
+                <div class="rumus-kerja-empty">Buat titik di canvas lalu klik TERAPKAN untuk melihat langkah penyelesaiannya.</div>
+            </div>
+        </div>
+
+        <!-- REFLEKSI -->
+        <div id="rumusRefleksi" class="rumus-section" style="display:none;">
+            <div class="rumus-jenis">Refleksi (Pencerminan)</div>
+            <p class="rumus-deskripsi">Cerminkan titik terhadap sumbu, garis, atau titik pusat tertentu.</p>
+
+            <div class="rumus-sub">Sumbu-X</div>
+            <div class="rumus-box">\[ R_x(x,y) = (x,\; -y) \]</div>
+
+            <div class="rumus-sub">Sumbu-Y</div>
+            <div class="rumus-box">\[ R_y(x,y) = (-x,\; y) \]</div>
+
+            <div class="rumus-sub">Garis $x = k$</div>
+            <div class="rumus-box">\[ R_{x=k}(x,y) = (2k-x,\; y) \]</div>
+
+            <div class="rumus-sub">Garis $y = k$</div>
+            <div class="rumus-box">\[ R_{y=k}(x,y) = (x,\; 2k-y) \]</div>
+
+            <div class="rumus-sub">Garis $y = x$</div>
+            <div class="rumus-box">\[ R_{y=x}(x,y) = (y,\; x) \]</div>
+
+            <div class="rumus-sub">Garis $y = -x$</div>
+            <div class="rumus-box">\[ R_{y=-x}(x,y) = (-y,\; -x) \]</div>
+
+            <div class="rumus-sub">Titik Pusat $O(0,0)$</div>
+            <div class="rumus-box">\[ R_O(x,y) = (-x,\; -y) \]</div>
+
+            <div class="rumus-langkah">
+                <div class="langkah-title">Langkah Penyelesaian</div>
+                <ol>
+                    <li>Tentukan titik asal $(x, y)$ dan jenis cermin.</li>
+                    <li>Terapkan rumus yang sesuai.</li>
+                    <li>Bayangan: $(x', y')$</li>
+                </ol>
+            </div>
+            <div class="rumus-kerja" id="kerjaRefleksi">
+                <div class="contoh-title">Penyelesaian Titik Anda</div>
+                <div class="rumus-kerja-empty">Buat titik di canvas lalu klik TERAPKAN untuk melihat langkah penyelesaiannya.</div>
+            </div>
+        </div>
+
+        <!-- ROTASI -->
+        <div id="rumusRotasi" class="rumus-section" style="display:none;">
+            <div class="rumus-jenis">Rotasi (Perputaran)</div>
+            <p class="rumus-deskripsi">Putar titik $(x,y)$ sebesar sudut $\theta$ terhadap pusat $O(0,0)$.</p>
+
+            <div class="rumus-sub">Rotasi $90°$ (berlawanan jarum jam)</div>
+            <div class="rumus-box">\[ R_{90°}(x,y) = (-y,\; x) \]</div>
+
+            <div class="rumus-sub">Rotasi $-90°$ (searah jarum jam)</div>
+            <div class="rumus-box">\[ R_{-90°}(x,y) = (y,\; -x) \]</div>
+
+            <div class="rumus-sub">Rotasi $180°$</div>
+            <div class="rumus-box">\[ R_{180°}(x,y) = (-x,\; -y) \]</div>
+
+            <div class="rumus-sub">Rotasi $270°$ (berlawanan jarum jam)</div>
+            <div class="rumus-box">\[ R_{270°}(x,y) = (y,\; -x) \]</div>
+
+            <div class="rumus-sub">Rotasi $-270°$ (berlawanan jarum jam)</div>
+            <div class="rumus-box">\[ R_{-270°}(x,y) = (-y,\; x) \]</div>
+
+            <div class="rumus-sub">Rumus Umum (sudut $\theta$)</div>
+            <div class="rumus-box">\[ R_\theta(x,y) = (x\cos\theta - y\sin\theta,\; x\sin\theta + y\cos\theta) \]</div>
+
+            <div class="rumus-langkah">
+                <div class="langkah-title">Langkah Penyelesaian</div>
+                <ol>
+                    <li>Tentukan titik $(x, y)$, besar sudut, dan arah rotasi.</li>
+                    <li>Pilih rumus sesuai sudut rotasi.</li>
+                    <li>Substitusi nilai $x$ dan $y$.</li>
+                    <li>Bayangan: $(x', y')$</li>
+                </ol>
+            </div>
+            <div class="rumus-kerja" id="kerjaRotasi">
+                <div class="contoh-title">Penyelesaian Titik Anda</div>
+                <div class="rumus-kerja-empty">Buat titik di canvas lalu klik TERAPKAN untuk melihat langkah penyelesaiannya.</div>
+            </div>
+        </div>
+
+        <!-- DILATASI -->
+        <div id="rumusDilatasi" class="rumus-section" style="display:none;">
+            <div class="rumus-jenis">Dilatasi (Perkalian)</div>
+            <p class="rumus-deskripsi">Perbesar atau perkecil titik $(x,y)$ dengan faktor skala $k$ terhadap pusat tertentu.</p>
+
+            <div class="rumus-sub">Terhadap Pusat $O(0,0)$</div>
+            <div class="rumus-box">\[ D_k(x,y) = (kx,\; ky) \]</div>
+
+            <div class="rumus-sub">Terhadap Pusat $P(a,b)$</div>
+            <div class="rumus-box">
+                \[ x' = a + k(x - a) \]
+                \[ y' = b + k(y - b) \]
+            </div>
+
+            <div class="rumus-langkah">
+                <div class="langkah-title">Langkah Penyelesaian</div>
+                <ol>
+                    <li>Tentukan titik $(x, y)$, faktor skala $k$, dan pusat dilatasi.</li>
+                    <li>Kalikan koordinat dengan $k$ (jika pusat $O(0,0)$).</li>
+                    <li>Atau gunakan rumus pusat $P(a,b)$ untuk pusat lainnya.</li>
+                    <li>Bayangan: $(x', y')$</li>
+                </ol>
+            </div>
+            <div class="rumus-kerja" id="kerjaDilatasi">
+                <div class="contoh-title">Penyelesaian Titik Anda</div>
+                <div class="rumus-kerja-empty">Buat titik di canvas lalu klik TERAPKAN untuk melihat langkah penyelesaiannya.</div>
+            </div>
+        </div>
+
+    </div>
+
+    <a href="03-kuis.html" class="quiz-link">
+        <button type="button" class="quiz-btn">
+            <span class="quiz-icon">🎮</span>
+            MULAI KUIS, GASKAN
+        </button>
+    </a>
+
+</div>
+
+<script>
+window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+// Tampilkan panel rumus sesuai transformasi yang dipilih
+function tampilkanRumusPanel(jenis) {
+    const sections = ['Translasi','Refleksi','Rotasi','Dilatasi'];
+    sections.forEach(s => {
+        const el = document.getElementById('rumus' + s);
+        if (el) el.style.display = 'none';
+    });
+    const hint = document.querySelector('.rumus-hint');
+    if (hint) hint.style.display = 'none';
+
+    const map = {
+        'translasi': 'Translasi',
+        'refleksi': 'Refleksi',
+        'rotasi': 'Rotasi',
+        'dilatasi': 'Dilatasi'
+    };
+    const target = map[jenis];
+    if (target) {
+        const el = document.getElementById('rumus' + target);
+        if (el) {
+            el.style.display = 'block';
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise([el]).catch(e => console.error(e));
+            }
+        }
+    }
+}
+</script>
+<script src="assets/js/simulasi.js"></script>
+
+<script src="assets/js/landscape-guard.js"></script>
+</body>
+</html>

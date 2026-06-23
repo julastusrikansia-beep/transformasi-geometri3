@@ -1,0 +1,1469 @@
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Baloo+2:wght@700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #1a1a2e;
+  min-height: 100vh;
+  font-family: 'Baloo 2', sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px 20px 20px;
+  gap: 14px;
+}
+
+/* TOMBOL KEMBALI BULAT */
+.back-circle-link {
+  text-decoration: none;
+  display: inline-block;
+  width: fit-content;
+}
+
+.back-circle-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(145deg, #0F52BA, #0b3d8a);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.15),
+    0 4px 0 #072c66,
+    0 6px 12px rgba(0,0,0,0.4);
+  transition: all 0.1s ease;
+}
+
+.back-circle-btn:hover {
+  background: linear-gradient(145deg, #1b63d1, #0F52BA);
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.15),
+    0 6px 0 #072c66,
+    0 8px 16px rgba(0,0,0,0.4);
+}
+
+.back-circle-btn:active {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.15),
+    0 2px 0 #072c66,
+    0 4px 6px rgba(0,0,0,0.4);
+}
+
+/* HEADER */
+.top-bar {
+  display: flex;
+  align-items: center; 
+  gap: 16px;          
+  width: 100%;
+}
+
+.header {
+  flex: 1;            
+  background: white;
+  border-radius: 50px;
+  padding: 10px 36px;
+  text-align: center;
+  border: 3px solid #0F52BA;
+  box-shadow:
+    0 0 0 3px #0F52BA,
+    4px 6px 0 4px #0F52BA;
+}
+
+.header h1 {
+  font-family: 'Russo One', sans-serif;
+  font-size: clamp(24px, 3.5vw, 46px);
+  color: #0F52BA;
+  letter-spacing: 5px;
+  text-shadow:
+    2px 2px 0 #000088,
+    -1px -1px 0 #0000aa;
+}
+
+/* BODY */
+.body-row {
+  display: flex;
+  gap: 14px;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+    overflow-x: auto;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 320px;
+  max-width: 320px; /* Dikunci agar tidak bisa melar */
+  flex-shrink: 0;   /* Memastikan tidak menyusut mendesak canvas */
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-sizing: border-box;
+}
+
+.sidebar-label {
+  color: white;
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+
+/* PANEL PILIHAN KELOMPOK TOMBOL */
+.btn-transform {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(145deg, #0F52BA, #0b3d8a);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.15),
+    0 4px 0 #072c66,
+    0 6px 12px rgba(0,0,0,0.3);
+  transition: all .2s ease;
+}
+
+.btn-transform:hover {
+  background: linear-gradient(145deg, #1b63d1, #0F52BA);
+}
+
+.arrow {
+  transition: transform .3s ease;
+}
+
+.btn-transform.active .arrow {
+  transform: rotate(180deg);
+}
+
+.dropdown-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin-top: 8px;
+  background: linear-gradient(145deg, #0F52BA, #0b3d8a);
+  border: 2px solid #0F52BA;
+  border-radius: 16px;
+  overflow: hidden;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity .3s ease, transform .3s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,.35);
+}
+
+.dropdown-menu.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* Tampilan 4 Tombol Utama */
+.dropdown-item {
+  width: 100%;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  text-align: left;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  background: transparent;
+  box-shadow: none;
+  transition: .2s;
+}
+
+/* Garis pemisah */
+.dropdown-item:not(:last-child) {
+  border-bottom: 1px solid rgba(255,255,255,.15);
+}
+
+.dropdown-item:hover {
+  background: rgba(255,255,255,.12);
+  transform: none;
+  box-shadow: none;
+}
+
+.dropdown-item:active {
+  transform: none;
+}
+
+/* Efek Animasi untuk item transformasi */
+.dropdown-item:hover {
+  background: linear-gradient(145deg, #1b63d1, #0F52BA);
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.15),
+    0 6px 0 #072c66,
+    0 8px 16px rgba(0,0,0,0.3);
+}
+
+.dropdown-item:active {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.15),
+    0 2px 0 #072c66,
+    0 4px 6px rgba(0,0,0,0.3);
+}
+
+/* PARAMETER PANEL */
+.parameter-panel {
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.05),
+    0 6px 18px rgba(0,0,0,0.45);
+}
+
+.parameter-title {
+  color: white;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+/* INPUT */
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+}
+
+.input-group label {
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  flex: 1;
+}
+
+.input-group input {
+  width: 90px;
+  max-width: 45%;
+  height: 48px;
+  border: 2px solid rgba(255,255,255,0.2);
+  outline: none;
+  border-radius: 12px;
+  padding: 0 12px;
+  font-size: 18px;
+  font-weight: 800;
+  background: #1a2a4a;
+  color: #ffffff;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.input-group input:focus {
+  border-color: #4d9fff;
+  background: #1e3560;
+}
+
+.input-stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+/* Input asli — tersembunyi di belakang overlay, hanya muncul saat focus */
+.input-stack input {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: transparent;
+  caret-color: #ffffff;
+  font-size: 18px;
+  font-weight: 800;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 0 12px;
+  /* Tinggi diatur oleh wrapper */
+}
+
+/* Wrapper — ini yang terlihat sebagai "kotak input" */
+.input-stack {
+  width: 90px;
+  height: 48px;
+  border: 2px solid rgba(255,255,255,0.25);
+  border-radius: 12px;
+  background: #1a2a4a;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.35);
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.input-stack:focus-within {
+  border-color: #4d9fff;
+  background: #1e3560;
+}
+
+/* Overlay LaTeX — tampil saat TIDAK sedang mengetik */
+.input-latex-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
+  color: #ffffff;
+  font-size: 15px;
+  transition: opacity 0.12s;
+}
+
+/* Saat input di-focus: sembunyikan overlay, munculkan teks asli */
+.input-stack:focus-within .input-latex-overlay {
+  opacity: 0;
+}
+
+.input-stack:focus-within input {
+  opacity: 1;
+  color: #ffffff;
+}
+
+.input-latex-preview {
+  display: none;
+}
+
+/* BUTTON AKSI */
+.action-btn {
+  border: none;
+  cursor: pointer;
+  border-radius: 14px;
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 800;
+  color: white;
+  transition: all 0.1s ease; 
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+}
+
+.action-btn:active {
+  transform: translateY(2px);
+}
+
+.apply-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 18px;
+  background: linear-gradient(145deg, #2a73e0, #0F52BA);
+  box-shadow:
+    0 4px 0 #072c66,
+    0 8px 18px rgba(0,0,0,0.4);
+}
+
+.apply-btn:hover {
+  box-shadow:
+    0 6px 0 #072c66,
+    0 10px 22px rgba(0,0,0,0.4);
+}
+
+.apply-btn:active {
+  box-shadow:
+    0 2px 0 #072c66,
+    0 4px 8px rgba(0,0,0,0.4);
+}
+
+.btn-row {
+  display: flex;
+  gap: 10px;
+}
+
+.reset-btn,
+.animasi-btn {
+  flex: 1;
+  padding: 12px;
+  font-size: 16px;
+}
+
+.reset-btn {
+  background: linear-gradient(145deg,#4a4a4a,#2f2f2f);
+  box-shadow:
+    0 4px 0 #1b1b1b,
+    0 6px 12px rgba(0,0,0,0.35);
+}
+
+.reset-btn:hover {
+  box-shadow: 0 6px 0 #1b1b1b, 0 8px 16px rgba(0,0,0,0.35);
+}
+
+.reset-btn:active {
+  box-shadow: 0 2px 0 #1b1b1b, 0 4px 6px rgba(0,0,0,0.35);
+}
+
+.animasi-btn {
+  background: linear-gradient(145deg,#2a73e0,#0F52BA);
+  box-shadow:
+    0 4px 0 #072c66,
+    0 6px 12px rgba(0,0,0,0.35);
+}
+
+.animasi-btn:hover {
+  box-shadow: 0 6px 0 #072c66, 0 8px 16px rgba(0,0,0,0.35);
+}
+
+.animasi-btn:active {
+  box-shadow: 0 2px 0 #072c66, 0 4px 6px rgba(0,0,0,0.35);
+}
+
+/* TOGGLE GROUP & SWITCH */
+.toggle-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toggle-group span {
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.switch {
+  position: relative;
+  width: 54px;  
+  height: 30px; 
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background: #444; 
+  border-radius: 50px; 
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 22px;  
+  height: 22px;
+  left: 4px;    
+  top: 4px;     
+  background: white;
+  border-radius: 50%; 
+  transition: 0.2s; 
+}
+
+.switch input:checked + .slider {
+  background: #0F52BA; 
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(24px); 
+}
+
+/* CANVAS PANEL */
+.canvas-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0; 
+}
+
+.container-kartesius {
+  position: relative;
+  width: 700px;
+  height: 600px;
+  max-width: 100%;
+}
+
+.kotak-putih {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2); 
+  border-radius: 20px; 
+  z-index: 1; 
+  pointer-events: none; 
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2; 
+  background: transparent;
+  border-radius: 20px;
+  touch-action: none; /* memungkinkan geser & pinch-zoom kustom tanpa scroll halaman */
+}
+
+/* OVERLAY LABEL TITIK (MATHJAX) */
+.label-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.titik-label {
+  position: absolute;
+  display: none;
+  color: #0F52BA;
+  font-weight: bold;
+  font-size: 14px;
+  white-space: nowrap;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.titik-label mjx-container {
+  color: inherit !important;
+}
+
+/* PILIH OBJEK */
+.objek-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.objek-btn {
+  flex: 1;
+  padding: 14px 10px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(145deg, #0F52BA, #0b3d8a);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.15),
+    0 4px 0 #072c66,
+    0 6px 12px rgba(0,0,0,0.3);
+  transition: all .1s ease;
+}
+
+.objek-btn:hover {
+  background: linear-gradient(145deg, #1b63d1, #0F52BA);
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.15),
+    0 6px 0 #072c66,
+    0 8px 16px rgba(0,0,0,0.3);
+}
+
+.objek-btn:active {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.15),
+    0 2px 0 #072c66,
+    0 4px 6px rgba(0,0,0,0.3);
+}
+
+/* WADAH KOORDINAT LATEX */
+.panel-latex-koordinat-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.latex-box {
+  flex: 1;
+  min-height: 140px; 
+  color: white;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.latex-parameter {
+  min-height: 60px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.latex-parameter:empty {
+  display: none;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+}
+
+/* PANEL REFLEKSI */
+#panelRefleksi {
+  width: 100%;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+#panelRefleksi label {
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* DROPDOWN REFLEKSI */
+#sumbuRefleksi {
+  width: 140px;
+  height: 48px;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+  padding: 0 12px;
+  cursor: pointer;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(145deg, #0F52BA, #0b3d8a);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.15),
+    0 4px 0 #072c66,
+    0 6px 12px rgba(0,0,0,.3);
+  transition: .2s;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+#sumbuRefleksi:hover {
+  background: linear-gradient(145deg, #1b63d1, #0F52BA);
+}
+
+#sumbuRefleksi option {
+  background: #0b3d8a;
+  color: white;
+}
+
+.page-enter{
+  animation:pageEnter .8s ease;
+}
+
+@keyframes pageEnter{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* TOMBOL MENU KUIS (DI BAWAH PANEL CANVAS) */
+.quiz-link {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  margin-top: 20px; 
+}
+
+.quiz-btn {
+  width: 100%;
+  padding: 16px 24px;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: white;
+  background: linear-gradient(145deg, #2a73e0, #0F52BA);
+  border: none;
+  border-radius: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 5px 0 #072c66,
+    0 8px 16px rgba(0, 0, 0, 0.45);
+  transition: all 0.1s ease-in-out;
+}
+
+.quiz-btn:hover {
+  background: linear-gradient(145deg, #3b82f6, #125ece);
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 8px 0 #072c66,
+    0 12px 20px rgba(0, 0, 0, 0.5);
+}
+
+.quiz-btn:active {
+  transform: translateY(3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 2px 0 #072c66,
+    0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.quiz-icon {
+  font-size: 24px;
+  animation: bounceIcon 2s infinite ease-in-out;
+}
+
+@keyframes bounceIcon {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* ======================================
+    LAYOUT CANVAS + HASIL
+====================================== */
+.canvas-layout{
+  display:flex;
+  gap:25px;
+  align-items:flex-start;
+}
+
+/* ======================================
+    PANEL CANVAS
+====================================== */
+.canvas-panel{
+  display:flex;
+  flex-direction:column;
+}
+
+/* ======================================
+    PANEL HASIL DI KANAN
+====================================== */
+.hasil-panel{
+  width:280px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  margin-top:45px;
+}
+
+/* ======================================
+    BOX HASIL
+====================================== */
+.hasil-panel .latex-box{
+  background: linear-gradient(145deg, rgba(255,255,255,0.05));
+  color:white;
+  border-radius:18px;
+  min-height:180px;
+  padding:20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.35);
+  display:flex;
+  flex-direction:column;
+}
+
+.hasil-panel .latex-box h3{
+  text-align:center;
+  margin-bottom:15px;
+  color:white;
+  font-size:18px;
+}
+
+.hasil-panel #latexAwal,
+.hasil-panel #latexHasil{
+  width:100%;
+  max-width:100%;
+  min-height:100px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:white;
+  overflow-x:auto;
+  overflow-y:hidden;
+  box-sizing:border-box;
+}
+
+.hasil-panel #latexAwal mjx-container,
+.hasil-panel #latexHasil mjx-container,
+.hasil-panel #latexAwal .MJX-TEX,
+.hasil-panel #latexHasil .MJX-TEX{
+  color:#ffffff !important;
+  max-width:100%;
+}
+
+/* ======================================
+    PANEL RUMUS / CARA PENYELESAIAN
+====================================== */
+.solusi-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rumus-panel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 0;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 14px;
+  padding: 22px 26px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Di layout penuh-lebar, batasi lebar konten rumus & langkah agar tetap nyaman dibaca dan tidak terpotong */
+.rumus-section {
+  max-width: 760px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.rumus-panel mjx-container,
+.rumus-panel .MJX-TEX {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  color: #ffffff !important;
+  max-width: 100% !important;
+}
+
+.rumus-panel-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  letter-spacing: 0.5px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.rumus-hint {
+  color: rgba(255,255,255,0.45);
+  font-size: 13px;
+  text-align: center;
+  margin: 0;
+  padding: 12px 0;
+  font-style: italic;
+}
+
+.rumus-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rumus-jenis {
+  font-size: 14px;
+  font-weight: 700;
+  color: #5bc8f5;
+  text-align: center;
+  padding: 6px 0 4px;
+}
+
+.rumus-deskripsi {
+  font-size: 12px;
+  color: rgba(255,255,255,0.65);
+  margin: 0;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.rumus-sub {
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffc857;
+  margin-top: 4px;
+}
+
+.rumus-box {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 8px 10px;
+  color: #ffffff;
+  font-size: 13px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Sembunyikan tombol/scrollbar bawaan browser (panah atas-bawah) yang mengganggu tampilan */
+.rumus-box::-webkit-scrollbar,
+.rumus-contoh::-webkit-scrollbar,
+.rumus-kerja::-webkit-scrollbar,
+.rumus-panel::-webkit-scrollbar,
+.rumus-panel mjx-container::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.rumus-box .MJX-TEX,
+.rumus-box mjx-container {
+  color: #ffffff !important;
+}
+
+.rumus-langkah {
+  background: rgba(91, 200, 245, 0.08);
+  border-left: 3px solid #5bc8f5;
+  border-radius: 0 8px 8px 0;
+  padding: 10px 12px;
+  margin-top: 4px;
+}
+
+.langkah-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #5bc8f5;
+  margin-bottom: 6px;
+}
+
+.rumus-langkah ol {
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(255,255,255,0.8);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.rumus-contoh {
+  background: rgba(255, 200, 87, 0.08);
+  border-left: 3px solid #ffc857;
+  border-radius: 0 8px 8px 0;
+  padding: 10px 12px;
+  color: #ffffff;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.rumus-kerja {
+  background: rgba(91, 200, 245, 0.06);
+  border-left: 3px solid #5bc8f5;
+  border-radius: 0 8px 8px 0;
+  padding: 10px 12px;
+  color: #ffffff;
+  margin-top: 4px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.rumus-kerja .kerja-point {
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(255,255,255,0.1);
+}
+
+.rumus-kerja .kerja-point:last-child {
+  border-bottom: none;
+}
+
+.rumus-kerja-empty {
+  color: rgba(255,255,255,0.45);
+  font-size: 12px;
+  text-align: center;
+  font-style: italic;
+  padding: 6px 0;
+}
+
+.rumus-contoh mjx-container,
+.rumus-contoh .MJX-TEX {
+  color: #ffffff !important;
+}
+
+.contoh-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffc857;
+  margin-bottom: 6px;
+}
+
+/* ==========================================
+   TOMBOL UNDO / REDO
+========================================== */
+.undo-redo-btn {
+  flex: 1;
+  opacity: 1;
+  transition: all 0.1s ease, opacity 0.2s ease;
+}
+
+.undo-redo-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 2px 0 #072c66,
+    0 3px 6px rgba(0,0,0,0.2) !important;
+}
+
+/* ==========================================
+   RESPONSIVE MOBILE LANDSCAPE
+   Prinsip: tampilkan SEMUA fitur seperti desktop,
+   tapi canvas menyesuaikan sisa ruang yang tersedia
+========================================== */
+@media screen and (max-width: 960px) and (orientation: landscape) {
+
+  body {
+    padding: 8px 10px 10px 10px;
+    gap: 8px;
+  }
+
+  .back-circle-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+  .header {
+    padding: 6px 16px;
+  }
+
+  .header h1 {
+    font-size: clamp(13px, 3.5vw, 24px);
+    letter-spacing: 2px;
+  }
+
+  .body-row {
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
+
+  /* Sidebar lebih ramping, tapi semua fitur tetap ada */
+  .sidebar {
+    width: 230px;
+    max-width: 230px;
+    flex-shrink: 0;
+    gap: 8px;
+    overflow-y: auto;
+    max-height: calc(100vh - 70px);
+  }
+
+  .sidebar-label {
+    font-size: 12px;
+  }
+
+  .btn-transform {
+    padding: 9px 12px;
+    font-size: 13px;
+    border-radius: 12px;
+  }
+
+  .objek-row {
+    gap: 5px;
+  }
+
+  .objek-btn {
+    padding: 9px 5px;
+    font-size: 12px;
+    border-radius: 10px;
+  }
+
+  .parameter-panel {
+    padding: 10px 12px;
+    gap: 10px;
+    border-radius: 12px;
+  }
+
+  .parameter-title {
+    font-size: 15px;
+  }
+
+  .input-group {
+    gap: 6px;
+  }
+
+  .input-group label {
+    font-size: 12px;
+  }
+
+  .input-group input,
+  .input-stack input {
+    width: 64px;
+    height: 36px;
+    font-size: 14px;
+    padding: 0 8px;
+    border-radius: 8px;
+  }
+  /* Override wrapper size untuk landscape kecil */
+  .input-stack {
+    width: 64px;
+    height: 36px;
+    border-radius: 8px;
+  }
+
+  .apply-btn {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .reset-btn, .animasi-btn {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .toggle-group span { font-size: 12px; }
+
+  .switch { width: 42px; height: 24px; }
+  .slider::before { width: 17px; height: 17px; left: 3px; top: 3px; }
+  .switch input:checked + .slider::before { transform: translateX(18px); }
+
+  /* Canvas layout: canvas + hasil panel berdampingan horizontal */
+  .canvas-layout {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .canvas-panel {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .canvas-panel h2 {
+    font-size: 13px;
+    margin-bottom: 8px !important;
+  }
+
+  /* Container kartesius: isi sisa ruang, tinggi sesuai viewport */
+  .container-kartesius {
+    width: 100% !important;
+    height: calc(100vh - 75px) !important;
+    max-height: calc(100vh - 75px) !important;
+  }
+
+  .container-kartesius canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Panel hasil: kolom sempit di kanan canvas */
+  .hasil-panel {
+    width: 140px;
+    flex-shrink: 0;
+    margin-top: 30px;
+    gap: 10px;
+  }
+
+  .hasil-panel .latex-box {
+    min-height: 80px;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .hasil-panel .latex-box h3 {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .hasil-panel #latexAwal,
+  .hasil-panel #latexHasil {
+    font-size: 11px;
+    min-height: 50px;
+  }
+
+  /* Solusi section: tetap tampil di bawah */
+  .solusi-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .rumus-panel {
+    padding: 14px 16px;
+    gap: 10px;
+  }
+
+  .rumus-panel-title { font-size: 13px; }
+  .rumus-jenis { font-size: 13px; }
+  .rumus-deskripsi { font-size: 11px; }
+  .rumus-sub { font-size: 11px; }
+  .rumus-box { font-size: 11px; padding: 6px 8px; }
+  .rumus-langkah { padding: 8px 10px; }
+  .langkah-title { font-size: 11px; }
+  .rumus-langkah ol { font-size: 11px; }
+  .rumus-kerja { padding: 8px 10px; }
+  .rumus-kerja-empty { font-size: 11px; }
+  .contoh-title { font-size: 11px; }
+
+  .quiz-btn {
+    padding: 12px 18px;
+    font-size: 15px;
+  }
+}
+
+/* ============================================================
+   PORTRAIT MOBILE (HP tegak) - max-width: 768px
+   Layout berubah jadi vertikal: sidebar di atas, canvas di bawah
+   ============================================================ */
+@media screen and (max-width: 768px) and (orientation: portrait) {
+
+  body {
+    padding: 6px 8px 8px 8px;
+    gap: 6px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .back-circle-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 15px;
+  }
+
+  .header {
+    padding: 6px 12px;
+  }
+
+  .header h1 {
+    font-size: clamp(12px, 4vw, 20px);
+    letter-spacing: 1px;
+  }
+
+  /* Body row jadi kolom vertikal */
+  .body-row {
+    flex-direction: column;
+    gap: 10px;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  /* Sidebar full width di atas */
+  .sidebar {
+    width: 100%;
+    max-width: 100%;
+    flex-shrink: unset;
+    gap: 10px;
+  }
+
+  .sidebar-label {
+    font-size: 13px;
+  }
+
+  .btn-transform {
+    padding: 12px 14px;
+    font-size: 14px;
+    border-radius: 14px;
+  }
+
+  .objek-row {
+    gap: 6px;
+  }
+
+  .objek-btn {
+    padding: 10px 8px;
+    font-size: 13px;
+    border-radius: 10px;
+    flex: 1;
+  }
+
+  .parameter-panel {
+    padding: 12px 14px;
+    gap: 10px;
+    border-radius: 14px;
+  }
+
+  .parameter-title {
+    font-size: 15px;
+  }
+
+  .input-group {
+    gap: 8px;
+  }
+
+  .input-group label {
+    font-size: 13px;
+  }
+
+  .input-group input,
+  .input-stack input {
+    width: 80px;
+    height: 42px;
+    font-size: 16px;
+    padding: 0 10px;
+    border-radius: 10px;
+  }
+  /* Override wrapper size */
+  .input-stack {
+    width: 80px;
+    height: 42px;
+    border-radius: 10px;
+  }
+
+  .apply-btn {
+    padding: 12px;
+    font-size: 15px;
+  }
+
+  .reset-btn, .animasi-btn {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .toggle-group span { font-size: 12px; }
+  .switch { width: 44px; height: 24px; }
+  .slider::before { width: 17px; height: 17px; left: 3px; top: 3px; }
+  .switch input:checked + .slider::before { transform: translateX(20px); }
+
+  /* Canvas layout jadi kolom */
+  .canvas-layout {
+    flex: unset;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .canvas-panel {
+    width: 100%;
+  }
+
+  .canvas-panel h2 {
+    font-size: 13px;
+    margin-bottom: 6px !important;
+  }
+
+  /* Canvas kartesius: tinggi 55vw agar proporsional di portrait */
+  .container-kartesius {
+    width: 100% !important;
+    height: 70vw !important;
+    max-height: 70vw !important;
+  }
+
+  .container-kartesius canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Panel hasil berdampingan (Objek A & Hasil Transformasi) */
+  .hasil-panel {
+    width: 100%;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 0;
+  }
+
+  .hasil-panel .latex-box {
+    flex: 1;
+    min-height: 70px;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .hasil-panel .latex-box h3 {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .hasil-panel #latexAwal,
+  .hasil-panel #latexHasil {
+    font-size: 12px;
+    min-height: 40px;
+  }
+
+  /* Solusi / Cara Penyelesaian */
+  .solusi-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .rumus-panel {
+    padding: 12px 14px;
+    gap: 10px;
+    border-radius: 14px;
+  }
+
+  .rumus-panel-title { font-size: 13px; }
+  .rumus-jenis { font-size: 13px; }
+  .rumus-deskripsi { font-size: 11px; }
+  .rumus-sub { font-size: 11px; }
+  .rumus-box { font-size: 11px; padding: 6px 8px; }
+  .rumus-langkah { padding: 8px 10px; }
+  .langkah-title { font-size: 11px; }
+  .rumus-langkah ol { font-size: 11px; }
+  .rumus-kerja { padding: 8px 10px; }
+  .rumus-kerja-empty { font-size: 11px; }
+  .contoh-title { font-size: 11px; }
+
+  .quiz-btn {
+    padding: 14px 18px;
+    font-size: 15px;
+  }
+}
