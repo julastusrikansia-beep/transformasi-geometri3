@@ -1,8 +1,9 @@
-const CACHE_NAME = 'geometri-v3';
+const CACHE_NAME = 'geometri-v6'; // Naikkan versi ke v6
 
+// SUDAH LENGKAP mencakup semua file yang terlihat di VS Code kamu
 const assetsToCache = [
-  '/',                     
-  '/index.html',           
+  '/',
+  '/index.html',
   '/01-1-materi-pengantar.html',
   '/01-1-1-translasi.html',
   '/01-1-2-refleksi.html',
@@ -13,6 +14,8 @@ const assetsToCache = [
   '/assets/css/style.css',
   '/assets/css/simulasi.css',
   '/assets/css/materi-pengantar.css',
+  '/assets/css/main-menu.css',       // <--- Sudah ditambahkan
+  '/assets/css/kuis.css',            // <--- Sudah ditambahkan
   '/assets/js/background.js',
   '/assets/js/main-menu.js',
   '/assets/js/landscape-guard.js',
@@ -27,7 +30,13 @@ const assetsToCache = [
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(assetsToCache);
+      // Menggunakan Promise.all + catch per file agar jika ada kendala di salah satu file, 
+      // proses offline file lainnya tidak ikut digagalkan oleh browser.
+      return Promise.all(
+        assetsToCache.map(url => {
+          return cache.add(url).catch(err => console.warn('Gagal memuat file ke cache:', url, err));
+        })
+      );
     }).then(() => self.skipWaiting())
   );
 });
@@ -45,6 +54,7 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
+      // Ambil dari cache jika ada (offline), jika tidak ada baru ambil dari internet (online)
       return cachedResponse || fetch(event.request);
     })
   );
