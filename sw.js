@@ -1,9 +1,10 @@
-const CACHE_NAME = 'geometri-v6'; // Naikkan versi ke v6
+const CACHE_NAME = 'geometri-v7'; // <--- Naikkan ke v7
 
-// SUDAH LENGKAP mencakup semua file yang terlihat di VS Code kamu
 const assetsToCache = [
   '/',
   '/index.html',
+  
+  // Versi dengan .html
   '/01-1-materi-pengantar.html',
   '/01-1-1-translasi.html',
   '/01-1-2-refleksi.html',
@@ -11,11 +12,22 @@ const assetsToCache = [
   '/01-1-4-dilatasi.html',
   '/02-simulasi.html',
   '/03-kuis.html',
+
+  // Versi Tanpa .html (Untuk mengantisipasi Pretty URLs Netlify)
+  '/01-1-materi-pengantar',
+  '/01-1-1-translasi',
+  '/01-1-2-refleksi',
+  '/01-1-3-rotasi',
+  '/01-1-4-dilatasi',
+  '/02-simulasi',
+  '/03-kuis',
+
+  // File Assets CSS dan JS
   '/assets/css/style.css',
   '/assets/css/simulasi.css',
   '/assets/css/materi-pengantar.css',
-  '/assets/css/main-menu.css',       // <--- Sudah ditambahkan
-  '/assets/css/kuis.css',            // <--- Sudah ditambahkan
+  '/assets/css/main-menu.css',
+  '/assets/css/kuis.css',
   '/assets/js/background.js',
   '/assets/js/main-menu.js',
   '/assets/js/landscape-guard.js',
