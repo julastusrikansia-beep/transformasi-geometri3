@@ -1,4 +1,4 @@
-const CACHE_NAME = 'geometri-v8';
+const CACHE_NAME = 'geometri-v10'; // Naikkan versi lagi agar langsung terupdate
 
 const assetsToCache = [
   '/',
@@ -13,7 +13,7 @@ const assetsToCache = [
   '/02-simulasi.html',
   '/03-kuis.html',
 
-  // Versi Tanpa .html (Untuk mengantisipasi Pretty URLs Netlify)
+  // Versi Tanpa .html (Untuk Netlify Pretty URLs)
   '/01-1-materi-pengantar',
   '/01-1-1-translasi',
   '/01-1-2-refleksi',
@@ -36,14 +36,30 @@ const assetsToCache = [
   '/assets/js/materi.js',
   '/assets/js/scroll-animation.js',
   '/assets/js/simulasi.js',
-  '/manifest.json'
+  '/manifest.json',
+
+  // --- DAFTAR GAMBAR SESUAI STRUKTUR FOLDER KM ---
+  '/assets/img/dilatasi.png',
+  '/assets/img/icon-192.png',
+  '/assets/img/icon-512.png',
+  '/assets/img/mudah.jpg',
+  '/assets/img/refleksi.png',
+  '/assets/img/rotasi.png',
+  '/assets/img/sedang.jpg',
+  '/assets/img/sulit.jpg',
+  '/assets/img/translasi.png',
+  
+  // File yang menggunakan spasi diubah menjadi %20
+  '/assets/img/Ilustrasi%20dilatasi%20Geometri%201.png',
+  '/assets/img/Ilustrasi%20refleksi%20Geometri.png',
+  '/assets/img/Ilustrasi%20rotasi%20Geometri%201.png',
+  '/assets/img/Ilustrasi%20Translasi%20Geometri%201.png'
 ];
 
+// Proses Install & Pre-caching
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      // Menggunakan Promise.all + catch per file agar jika ada kendala di salah satu file, 
-      // proses offline file lainnya tidak ikut digagalkan oleh browser.
       return Promise.all(
         assetsToCache.map(url => {
           return cache.add(url).catch(err => console.warn('Gagal memuat file ke cache:', url, err));
@@ -53,6 +69,7 @@ self.addEventListener('install', event => {
   );
 });
 
+// Proses Aktivasi & Pembersihan Cache Lama
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys => {
@@ -63,11 +80,25 @@ self.addEventListener('activate', event => {
   );
 });
 
+// Proses Fetching (Strategi Cache First, dengan auto-cache untuk gambar baru)
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
-      // Ambil dari cache jika ada (offline), jika tidak ada baru ambil dari internet (online)
-      return cachedResponse || fetch(event.request);
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+
+      return fetch(event.request).then(networkResponse => {
+        if (event.request.destination === 'image') {
+          return caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, networkResponse.clone());
+            return networkResponse;
+          });
+        }
+        return networkResponse;
+      }).catch(err => {
+        console.error('File tidak ditemukan di cache maupun internet:', err);
+      });
     })
   );
 });
