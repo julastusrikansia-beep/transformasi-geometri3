@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Materi Refleksi</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+window.MathJax = {
+    tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: { '[+]': ['ams'] }
+    },
+    options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+};
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div class="header reveal">
+    <h1>Refleksi (Pencerminan)</h1>
+    <span class="subjudul">Materi Transformasi Geometri</span>
+</div>
+
+<div class="materi-container">
+
+    <div class="card reveal">
+        <h2>Pengertian Refleksi</h2>
+        <p>
+            Refleksi adalah transformasi yang memindahkan titik atau bangun
+            dengan cara mencerminkan terhadap suatu garis tertentu.
+        </p>
+    </div>
+
+    <div class="card reveal">
+        <h2>Refleksi terhadap Sumbu-\(x\)</h2>
+        <div class="rumus">
+            <div class="math-block">\[R_x(x,y)=(x,-y)\]</div>
+        </div>
+        <p>Nilai \(x\) tetap, sedangkan nilai \(y\) berubah tanda.</p>
+    </div>
+
+    <div class="card reveal">
+        <h2>Refleksi terhadap Sumbu-\(y\)</h2>
+        <div class="rumus">
+            <div class="math-block">\[R_y(x,y)=(-x,y)\]</div>
+        </div>
+        <p>Nilai \(y\) tetap, sedangkan nilai \(x\) berubah tanda.</p>
+    </div>
+
+    <div class="card reveal">
+        <h2>Refleksi terhadap Garis \(x = k\) dan \(y = k\)</h2>
+        <h3>1. Refleksi terhadap Garis \(x = k\)</h3>
+        <div class="rumus">
+            <div class="math-block">\[R_{x=k}(x,y) = (2k - x,\ y)\]</div>
+        </div>
+        <p style="margin-bottom:20px;">Nilai ordinat (\(y\)) tetap, sedangkan absis (\(x\)) berubah menjadi \(2k - x\).</p>
+        <h3>2. Refleksi terhadap Garis \(y = k\)</h3>
+        <div class="rumus">
+            <div class="math-block">\[R_{y=k}(x,y) = (x,\ 2k - y)\]</div>
+        </div>
+        <p>Nilai absis (\(x\)) tetap, sedangkan ordinat (\(y\)) berubah menjadi \(2k - y\).</p>
+    </div>
+
+    <div class="card reveal">
+        <h2>Refleksi terhadap Garis dan Titik Khusus</h2>
+        <h3>1. Refleksi terhadap Garis \(y=x\)</h3>
+        <div class="rumus">
+            <div class="math-block">\[R_{y=x}(x,y)=(y,x)\]</div>
+        </div>
+        <p>Koordinat absis dan ordinat saling bertukar posisi.</p>
+        <hr>
+        <h3>2. Refleksi terhadap Garis \(y=-x\)</h3>
+        <div class="rumus">
+            <div class="math-block">\[R_{y=-x}(x,y)=(-y,-x)\]</div>
+        </div>
+        <p>Koordinat bertukar posisi dan keduanya berubah tanda.</p>
+        <hr>
+        <h3>3. Refleksi terhadap Titik Pusat \(O(0,0)\)</h3>
+        <div class="rumus">
+            <div class="math-block">\[R_{O(0,0)}(x,y)=(-x,-y)\]</div>
+        </div>
+        <p>Kedua koordinat berubah tanda.</p>
+    </div>
+
+    <div class="card reveal">
+        <h2>Contoh Soal</h2>
+
+        <div class="card reveal">
+            <h3>Contoh Soal 1</h3>
+            <p>Titik \(A(3,4)\) dicerminkan terhadap sumbu-\(x\). Tentukan bayangan titik \(A\).</p>
+            <div class="rumus">
+                <h4>Penyelesaian</h4>
+                <p>Diketahui:</p>
+                <div class="math-block">\[A(3,4), \quad \text{cermin: sumbu-}x\]</div>
+                <p>Rumus refleksi terhadap sumbu-\(x\):</p>
+                <div class="math-block">\[R_x(x,y) = (x,-y)\]</div>
+                <p>Langkah penyelesaian:</p>
+                <div class="math-block">\[\begin{aligned}
+A' &= (x,\;-y)\\
+   &= (3,\;-4)
+\end{aligned}\]</div>
+                <div class="math-block">\[\boxed{A'(3,-4)}\]</div>
+            </div>
+        </div>
+
+        <div class="card reveal">
+            <h3>Contoh Soal 2</h3>
+            <p>
+                Sebuah segitiga memiliki titik sudut \(A(1,2)\), \(B(4,1)\), dan \(C(3,5)\).
+                Jika dicerminkan terhadap sumbu-\(y\), tentukan koordinat bayangan segitiga tersebut.
+            </p>
+            <div class="rumus">
+                <h4>Penyelesaian</h4>
+                <p>Diketahui:</p>
+                <div class="math-block">\[A(1,2),\; B(4,1),\; C(3,5), \quad \text{cermin: sumbu-}y\]</div>
+                <p>Rumus refleksi terhadap sumbu-\(y\):</p>
+                <div class="math-block">\[R_y(x,y) = (-x,y)\]</div>
+                <p>Langkah penyelesaian:</p>
+                <div class="math-block">\[\begin{aligned}
+A' &= (-1,\;2)\\
+B' &= (-4,\;1)\\
+C' &= (-3,\;5)
+\end{aligned}\]</div>
+            </div>
+            <p>
+                Jadi bayangan segitiga tersebut adalah
+                \(A'(-1,2)\), \(B'(-4,1)\), \(C'(-3,5)\).
+            </p>
+        </div>
+
+        <div class="card reveal">
+            <h3>Contoh Soal 3</h3>
+            <p>Titik \(P(5,2)\) dicerminkan sehingga menjadi \(P'(-5,2)\). Tentukan garis refleksi yang digunakan.</p>
+            <div class="rumus">
+                <h4>Penyelesaian</h4>
+                <p>Diketahui:</p>
+                <div class="math-block">\[P(5,2) \rightarrow P'(-5,2)\]</div>
+                <p>Koordinat \(y\) tetap, sedangkan koordinat \(x\) berubah tanda:</p>
+                <div class="math-block">\[\begin{aligned}
+x &: 5 \rightarrow -5\\
+y &: 2 \rightarrow 2
+\end{aligned}\]</div>
+                <p>Perubahan tersebut sesuai dengan rumus refleksi terhadap sumbu-\(y\):</p>
+                <div class="math-block">\[R_y(x,y)=(-x,y)\]</div>
+                <div class="math-block">\[\boxed{\text{Garis refleksi: sumbu-}y}\]</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card reveal">
+        <h2>Contoh Kehidupan Sehari-hari</h2>
+        <div class="contoh-item-horizontal">
+            <div class="contoh-gambar">
+                <img src="assets/img/Ilustrasi refleksi Geometri.png"
+                     alt="Refleksi Cermin" class="img-contoh">
+            </div>
+            <div class="contoh-keterangan">
+                <h3>Bayangan pada Cermin</h3>
+                <p>
+                    Pada gambar, bayangan anak yang terlihat di dalam cermin merupakan hasil pencerminan.
+                    Bayangan tersebut memiliki bentuk dan ukuran yang sama dengan objek aslinya,
+                    tetapi berada pada posisi yang berlawanan terhadap cermin.
+                    Peristiwa ini merupakan contoh refleksi dalam kehidupan sehari-hari.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="next-prev">
+        <a href="01-1-1-translasi.html">← Translasi</a>
+        <a href="01-1-3-rotasi.html">Rotasi →</a>
+    </div>
+
+</div>
+
+<script src="assets/js/scroll-animation.js"></script>
+<script src="assets/js/landscape-guard.js"></script>
+<script>
+window.addEventListener('load', () => {
+    if (window.MathJax) { MathJax.typesetPromise(); }
+});
+</script>
+</body>
+</html>

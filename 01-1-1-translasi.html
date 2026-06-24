@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Materi Translasi</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+window.MathJax = {
+    tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: { '[+]': ['ams'] }
+    },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+};
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div class="header reveal">
+    <h1>Translasi (Pergeseran)</h1>
+    <span class="subjudul">Materi Transformasi Geometri</span>
+</div>
+
+<div class="materi-container">
+
+    <div class="card reveal">
+        <h2>Pengertian Translasi</h2>
+        <p>
+            Translasi adalah perubahan posisi suatu titik atau bangun dengan arah dan jarak tertentu
+            tanpa mengubah bentuk maupun ukurannya. Translasi sering disebut sebagai pergeseran.
+        </p>
+    </div>
+
+    <div class="card reveal">
+        <h2>Rumus Translasi</h2>
+        <div class="rumus">
+            <div class="math-block">\[T(x,y)=(x+a,\;y+b)\]</div>
+        </div>
+        <p>\(a\) = pergeseran horizontal<br>\(b\) = pergeseran vertikal</p>
+    </div>
+
+    <div class="card reveal">
+        <h2>Contoh Soal</h2>
+
+        <div class="card reveal">
+            <h3>Contoh Soal 1</h3>
+            <p>Titik \(A(2,3)\) ditranslasikan oleh \(T=(4,2)\). Tentukan bayangan titik \(A\).</p>
+            <div class="rumus">
+                <h4>Penyelesaian</h4>
+                <p>Diketahui:</p>
+                <div class="math-block">\[A(2,3), \quad T=(4,2)\]</div>
+                <p>Bayangan titik hasil translasi:</p>
+                <div class="math-block">\[\begin{aligned}
+A' &= (x+a,\;y+b) \\
+   &= (2+4,\;3+2) \\
+   &= (6,\;5)
+\end{aligned}\]</div>
+                <div class="math-block">\[\boxed{A'(6,5)}\]</div>
+            </div>
+        </div>
+
+        <div class="card reveal">
+            <h3>Contoh Soal 2</h3>
+            <p>
+                Segitiga ABC memiliki titik \(A(1,2)\), \(B(4,1)\), dan \(C(2,5)\).
+                Jika ditranslasikan oleh \(T=(3,-2)\), tentukan koordinat bayangan segitiga tersebut.
+            </p>
+            <div class="rumus">
+                <h4>Penyelesaian</h4>
+                <p>Diketahui:</p>
+                <div class="math-block">\[A(1,2),\; B(4,1),\; C(2,5), \quad T = (3,-2)\]</div>
+                <p>Rumus translasi:</p>
+                <div class="math-block">\[T(x,y) = (x+a,\; y+b)\]</div>
+                <p>Langkah penyelesaian:</p>
+                <div class="math-block">\[\begin{aligned}
+A' &= (1+3,\;2-2) = (4,\;0)\\
+B' &= (4+3,\;1-2) = (7,\;-1)\\
+C' &= (2+3,\;5-2) = (5,\;3)
+\end{aligned}\]</div>
+            </div>
+            <p>Jadi bayangan segitiga \(ABC\) adalah \(A'(4,0)\), \(B'(7,-1)\), \(C'(5,3)\).</p>
+        </div>
+
+        <div class="card reveal">
+            <h3>Contoh Soal 3</h3>
+            <p>Titik \(P(2,1)\) ditranslasikan sehingga menjadi \(P'(7,4)\). Tentukan vektor translasi yang digunakan.</p>
+            <div class="rumus">
+                <h4>Penyelesaian</h4>
+                <p>Diketahui:</p>
+                <div class="math-block">\[P(2,1) \rightarrow P'(7,4)\]</div>
+                <p>Misalkan vektor translasi \(T=(a,b)\), maka:</p>
+                <div class="math-block">\[\begin{aligned}
+a &= x' - x = 7 - 2 = 5\\
+b &= y' - y = 4 - 1 = 3
+\end{aligned}\]</div>
+                <div class="math-block">\[\boxed{T=(5,3)}\]</div>
+            </div>
+            <p>Jadi vektor translasi yang digunakan adalah <strong>\(T=(5,3)\)</strong>.</p>
+        </div>
+
+    </div>
+
+    <div class="card reveal">
+        <h2>Contoh dalam Kehidupan Sehari-hari</h2>
+        <div class="contoh-item-horizontal">
+            <div class="contoh-gambar">
+                <img src="assets/img/Ilustrasi Translasi Geometri 1.png"
+                     alt="Menggeser Kursi" class="img-contoh">
+            </div>
+            <div class="contoh-keterangan">
+                <h3>Menggeser Kursi</h3>
+                <p>
+                    Pada gambar, kursi digeser dari posisi awal ke posisi baru tanpa diputar atau diubah ukurannya.
+                    Bentuk dan arah kursi tetap sama, hanya letaknya yang berubah.
+                    Peristiwa ini merupakan contoh translasi atau pergeseran dalam kehidupan sehari-hari.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="next-prev">
+        <a href="01-1-materi-pengantar.html">🏠 Menu Materi</a>
+        <a href="01-1-2-refleksi.html">Refleksi →</a>
+    </div>
+
+</div>
+
+<script src="assets/js/scroll-animation.js"></script>
+<script src="assets/js/landscape-guard.js"></script>
+<script>
+window.addEventListener('load', () => {
+    if (window.MathJax) { MathJax.typesetPromise(); }
+});
+</script>
+</body>
+</html>

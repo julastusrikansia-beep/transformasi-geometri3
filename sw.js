@@ -1,4 +1,4 @@
-const CACHE_NAME = 'geometri-v7'; // <--- Naikkan ke v7
+const CACHE_NAME = 'geometri-v8';
 
 const assetsToCache = [
   '/',
