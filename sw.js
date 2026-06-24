@@ -1,4 +1,4 @@
-const CACHE_NAME = 'geometri-v10'; // Naikkan versi lagi agar langsung terupdate
+const CACHE_NAME = 'geometri-v11';
 
 const assetsToCache = [
   '/',
