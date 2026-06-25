@@ -234,28 +234,85 @@ nextBtn.onclick = () => {
   }
 };
 
-// Fungsi ketika tombol SELESAI ditekan
-finishBtn.onclick = () => {
+// ============================================================
+// MODAL KONFIRMASI SELESAI (modern)
+// ============================================================
+function buatModal() {
+  if (document.getElementById('modal-konfirmasi')) return;
+
+  const overlay = document.createElement('div');
+  overlay.id = 'modal-konfirmasi';
+  overlay.innerHTML = `
+    <div class="modal-backdrop"></div>
+    <div class="modal-card">
+      <div class="modal-icon" id="modal-icon">⚠️</div>
+      <h3 class="modal-judul" id="modal-judul">Soal Belum Lengkap</h3>
+      <p class="modal-pesan" id="modal-pesan"></p>
+      <div class="modal-aksi">
+        <button class="modal-btn modal-btn-batal" id="modal-batal">Kembali ke Soal</button>
+        <button class="modal-btn modal-btn-lanjut" id="modal-lanjut">Selesai Sekarang</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  document.getElementById('modal-batal').onclick = tutupModal;
+  document.getElementById('modal-lanjut').onclick = () => { tutupModal(); selesaikanKuis(); };
+  overlay.querySelector('.modal-backdrop').onclick = tutupModal;
+}
+
+function bukaModal(belumDijawab) {
+  buatModal();
+  const modal = document.getElementById('modal-konfirmasi');
+  const pesan = document.getElementById('modal-pesan');
+  const icon = document.getElementById('modal-icon');
+  const judul = document.getElementById('modal-judul');
+
+  if (belumDijawab > 0) {
+    icon.textContent = '⚠️';
+    judul.textContent = 'Ada Soal yang Belum Dijawab!';
+    pesan.innerHTML = `Masih ada <strong>${belumDijawab} soal</strong> yang belum kamu jawab.<br>Anda yakin untuk selesai?`;
+  } else {
+    icon.textContent = '✅';
+    judul.textContent = 'Siap Mengumpulkan?';
+    pesan.innerHTML = `Semua soal sudah dijawab.<br>Anda yakin untuk selesai?`;
+  }
+
+  modal.classList.add('aktif');
+  requestAnimationFrame(() => modal.querySelector('.modal-card').classList.add('masuk'));
+}
+
+function tutupModal() {
+  const modal = document.getElementById('modal-konfirmasi');
+  if (!modal) return;
+  modal.querySelector('.modal-card').classList.remove('masuk');
+  setTimeout(() => modal.classList.remove('aktif'), 280);
+}
+
+function selesaikanKuis() {
   let jumlahBenar = 0;
   let belumDijawab = 0;
 
-  // Evaluasi seluruh record array jawaban user
   dataKuisAktif.forEach((soal, i) => {
     if (jawabanUser[i] === soal.jawabanIndex) jumlahBenar++;
     if (jawabanUser[i] === null) belumDijawab++;
   });
 
-  // Rumus matematika menghitung skor nilai skala 0 - 100 dengan pembulatan terdekat
   const totalSkor = Math.round((jumlahBenar / dataKuisAktif.length) * 100);
 
-  // Sembunyikan area kuis dan munculkan display skor akhir
   areaGame.style.display = "none";
   hasilContainer.style.display = "block";
 
-  // Tampilkan data statistik performa kuis siswa
   nilaiSkor.innerText = totalSkor;
   const jumlahSalah = dataKuisAktif.length - jumlahBenar - belumDijawab;
   detailStat.innerHTML = `Benar: <b>${jumlahBenar}</b> | Salah: <b>${jumlahSalah}</b> ${belumDijawab > 0 ? `| Belum Dijawab: <b>${belumDijawab}</b>` : ''}`;
+}
+
+// Fungsi ketika tombol SELESAI ditekan
+finishBtn.onclick = () => {
+  let belumDijawab = 0;
+  jawabanUser.forEach(j => { if (j === null) belumDijawab++; });
+  bukaModal(belumDijawab);
 };
 
 // Fungsi tombol Main Lagi untuk kembali ke Menu Utama tingkat kesulitan
