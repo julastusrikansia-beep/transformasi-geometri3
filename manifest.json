@@ -1,6 +1,6 @@
 {
   "name": "Aplikasi Pembelajaran Transformasi Geometri",
-  "short_name": "Geometri PWA",
+  "short_name": "Transformasi Geometri",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#111111",
