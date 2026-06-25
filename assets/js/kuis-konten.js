@@ -71,6 +71,14 @@ function acakArray(arr) {
   return hasil;
 }
 
+// Mengacak urutan opsi jawaban pada sebuah soal,
+// lalu memperbarui jawabanIndex agar tetap menunjuk ke jawaban yang benar
+function acakOpsiSoal(soal) {
+  const jawabanTeks = soal.opsi[soal.jawabanIndex];
+  const opsiAcak = acakArray(soal.opsi);
+  return { ...soal, opsi: opsiAcak, jawabanIndex: opsiAcak.indexOf(jawabanTeks) };
+}
+
 // ==========================================================================
 // 2. FUNGSI PEMILIHAN TINGKAT KESULITAN KUIS
 // ==========================================================================
@@ -89,10 +97,13 @@ function pilihLevel(level) {
     return;
   }
 
-  // Acak soal lalu ambil sejumlah JUMLAH_SOAL[level]
+  // Acak soal lalu ambil sejumlah JUMLAH_SOAL[level],
+  // kemudian acak pula urutan opsi jawaban tiap soal
   const jumlah = JUMLAH_SOAL[level] || semuaSoal.length;
   const soalAcak = acakArray(semuaSoal);
-  dataKuisAktif = soalAcak.slice(0, Math.min(jumlah, soalAcak.length));
+  dataKuisAktif = soalAcak
+    .slice(0, Math.min(jumlah, soalAcak.length))
+    .map(acakOpsiSoal);
 
   // Inisialisasi ulang state kuis
   jawabanUser = Array(dataKuisAktif.length).fill(null);
