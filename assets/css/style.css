@@ -826,3 +826,79 @@ body {
         height: 72px;
     }
 }
+
+/* ============================================================
+   TOMBOL SIMULASI (di halaman materi dilatasi)
+   ============================================================ */
+.simulasi-cta {
+    text-align: center;
+    margin: 0 0 48px;
+}
+
+.simulasi-cta-label {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 13px;
+    margin-bottom: 12px;
+    letter-spacing: 0.3px;
+}
+
+.btn-simulasi {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 32px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #00bcd4 0%, #0077b6 100%);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 24px rgba(0, 188, 212, 0.35);
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-simulasi::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.btn-simulasi:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 36px rgba(0, 188, 212, 0.55);
+    background: linear-gradient(135deg, #26c6da 0%, #0096c7 100%);
+}
+
+.btn-simulasi:active {
+    transform: translateY(-1px) scale(0.99);
+}
+
+.btn-simulasi-icon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.btn-simulasi-arrow {
+    font-size: 18px;
+    transition: transform 0.25s ease;
+}
+
+.btn-simulasi:hover .btn-simulasi-arrow {
+    transform: translateX(4px);
+}
+
+@media (max-width: 480px) {
+    .btn-simulasi {
+        font-size: 14px;
+        padding: 13px 24px;
+        width: 100%;
+        justify-content: center;
+    }
+}

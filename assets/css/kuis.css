@@ -559,3 +559,131 @@ body{
     font-size: 30px;
   }
 }
+
+/* ============================================================
+   MODAL KONFIRMASI SELESAI
+   ============================================================ */
+#modal-konfirmasi {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+
+#modal-konfirmasi.aktif {
+  display: flex;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 10, 30, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.modal-card {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(145deg, #0d1b3e, #0a1628);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  padding: 36px 32px 28px;
+  max-width: 360px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 188, 212, 0.08);
+  transform: translateY(28px) scale(0.95);
+  opacity: 0;
+  transition: transform 0.28s cubic-bezier(0.34, 1.45, 0.64, 1), opacity 0.22s ease;
+}
+
+.modal-card.masuk {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.modal-icon {
+  font-size: 48px;
+  line-height: 1;
+  margin-bottom: 16px;
+  filter: drop-shadow(0 0 12px rgba(255, 200, 0, 0.4));
+}
+
+.modal-judul {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 10px;
+  letter-spacing: 0.2px;
+}
+
+.modal-pesan {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 14px;
+  line-height: 1.65;
+  margin: 0 0 28px;
+}
+
+.modal-pesan strong {
+  color: #ffd166;
+}
+
+.modal-aksi {
+  display: flex;
+  gap: 12px;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 13px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  letter-spacing: 0.2px;
+}
+
+.modal-btn:hover {
+  transform: translateY(-2px);
+}
+
+.modal-btn:active {
+  transform: translateY(0);
+}
+
+.modal-btn-batal {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.modal-btn-batal:hover {
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+
+.modal-btn-lanjut {
+  background: linear-gradient(135deg, #e67e22, #d35400);
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(230, 126, 34, 0.4);
+}
+
+.modal-btn-lanjut:hover {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  box-shadow: 0 6px 24px rgba(230, 126, 34, 0.6);
+}
+
+@media (max-width: 400px) {
+  .modal-card {
+    padding: 28px 20px 22px;
+    border-radius: 20px;
+  }
+  .modal-aksi {
+    flex-direction: column;
+  }
+}
